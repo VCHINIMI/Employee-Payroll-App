@@ -1,18 +1,10 @@
 class EmployeePayrollData {
 
-    constructor(...params) {
-      this.name = params[0];
-      this.salary = params[1];
-      this.gender = params[2];
-      this.startDate = params[3];
-      this.department = params[4];
-    }
-
     //narayan
     get id() {
       return this._id ;
     }
-    set id() {
+    set id(id) {
       this._id = id ;
     }
 
