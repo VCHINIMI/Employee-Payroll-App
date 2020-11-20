@@ -7,7 +7,15 @@ class EmployeePayrollData {
       this.startDate = params[3];
       this.department = params[4];
     }
-  
+
+    //narayan
+    get id() {
+      return this._id ;
+    }
+    set id() {
+      this._id = id ;
+    }
+
     get name() {
       return this._name;
     }
@@ -17,112 +25,52 @@ class EmployeePayrollData {
         this._name = name;
       else throw "Name is incorrect!";
     }
+
+    get profilePic() {
+      return this._profilePic ;
+    }
+    set profilePic(profilePic) {
+      this._profilePic = profilePic;
+    }
+
     get department() {
       return this._department;
     }
     set department(department) {
       this._department = department;
     }
+
     get salary() {
       return this._salary;
     }
-    set salary(salary) {
-      let salaryRegex = RegExp('^[1-9]{1}[0-9]*$');
-      if (salaryRegex.test(salary))
-        this._salary = salary;
-      else throw "Salary should be non zero positive number";
+    set salary(salary) { //narayan
+      this._salary = salary;
     }
+
     get gender() {
       return this._gender;
     }
-    set gender(gender) {
-      if (gender != undefined) {
-        let genderRegex = RegExp('^(Male|Female)$');
-        if (genderRegex.test(gender)) {
-          this._gender = gender;
-        } else {
-          throw "Gender incorrect";
-        }
-      }
+    set gender(gender) { //narayan
+      this._gender = gender ;
     }
+
     get startDate() {
       return this._startDate;
     }
     set startDate(startDate) {
-      if (startDate != undefined) {
-        if (startDate <= new Date()) {
-          const options = { year: "numeric", month: "long", day: "numeric" };
-          const employeeDate = startDate.toLocaleDateString("en-US", options);
-          this._startDate = employeeDate;
-        }
-        else throw "Select valid date!";
-      }
+      this._startDate = startDate;
     }
+
+    get note() {
+      return this._note ;
+    }
+    set note(note) {
+      this._note = note ;
+    }
+
     toString() {
-      return " Name: " + this.name + " Salary: " + this.salary + " Gender: " + this.gender + " Start Date: " + this.startDate + "Department: " + this.department;
-    }
-}
-
-function save() {
-    try {
-      var name = document.querySelector('#name').value;
-      var salary = document.querySelector('#salary').value;
-      var gender = document.querySelector('input[name=gender]:checked').value;
-      var year = document.querySelector('#year').value;
-      var month = document.querySelector('#month').value;
-      var day = document.querySelector('#day').value;
-      var startDate = new Date(year, month, day);
-      var department = [];
-      var deptCheckboxes = document.querySelectorAll('input[name=department]:checked');
-      for (var i = 0; i < deptCheckboxes.length; i++) {
-        department.push(deptCheckboxes[i].value);
-      }
-      var employee = new EmployeePayrollData(name, salary, gender, startDate, department);
-      alert(employee);
-    } catch (error) {
-      alert(error);
-    }
-  }
-
-const salary = document.querySelector('#salary');
-const output = document.querySelector('.salary-output');
-salary.addEventListener('input', function () {
-    output.textContent = salary.value;
-});
-
-const day = document.querySelector('#day');
-const year = document.querySelector('#year');
-const month = document.querySelector('#month');
-const dateError = document.querySelector('.date-error');
-[day, month, year].forEach(item => item.addEventListener('input', function () {
-  if (month.value == 1) {
-    if (isLeapYear(year.value)) {
-      if (day.value > 29) {
-        dateError.textContent = "Invalid Date!";
-      } else dateError.textContent = "";
-    } else {
-      if (day.value > 28) {
-        dateError.textContent = "Invalid Date!";
-      } else dateError.textContent = "";
-    }
-  }
-  if (month.value == 3 || month.value == 5 || month.value == 8 || month.value == 10) {
-    if (day.value > 30) {
-      dateError.textContent = "Invalid Date!";
-    } else dateError.textContent = "";
-  }
-}));
-
-const isLeapYear = (year) => {
-    let result = false;
-    if (year % 4 == 0) {
-      if (year % 100 == 0) {
-        if (year % 400 == 0) {
-          result = true;
-        }
-      } else {
-        result = true;
-      }
-    }
-    return result;
-  }  
+      const options = { year: 'numeric', month: 'long', day:'numeric'};
+      const empDate = !this.startDate ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
+      return "id= " + this.id + ", Name: " + this.name + ", Gender= "+this.gender + ", Profile Pic= " + this.profilePic + ", Department= " + this.department + " ,Salary= " + this.salary + ", Start Date= " + empDate + ", note= "+this.note;
+    }    
+}   
